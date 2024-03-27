@@ -73,6 +73,7 @@ const get_data = async (req, res) => {
   }
 };
 
+// To get the single user who are pubic or private
 const get_user_data = async (req, res) => {
   try{
     const _id = req.params.id;
@@ -94,6 +95,7 @@ const get_user_data = async (req, res) => {
   }
 }
 
+// To get all Users 
 const get_all_users = async (req, res) => {
   const isAdmin = req.user.is_admin;
   if(isAdmin){
@@ -122,6 +124,24 @@ const editUser = async (req, res) => {
   }
 };
 
+//Get all public users for the normal user.
+const get_public_data =  async(req,res) => {
+  try{
+
+   const isAdmin = req.user.is_admin;
+   if(!isAdmin){
+   const get_public_user = await User.find({type:'public'});
+   console.log(get_public_user);
+   res.send(get_public_user);
+   }
+   const users = await User.find();
+   res.send(users);
+  } 
+  catch(err){
+    res.send(err);
+  }
+}
+
 module.exports = {
   insertUser,
   logIn,
@@ -129,4 +149,6 @@ module.exports = {
   get_data,
   get_user_data,
   editUser,
+  get_all_users,
+  get_public_data
 };
