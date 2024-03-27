@@ -1,12 +1,10 @@
 const User = require("../models/user");
 const RevokedToken = require("../models/revoked");
-// const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const insertUser = async (req, res) => {
   try {
-    //   console.log(req.file);
-    //   const sPassword = await securePassword(req.body.password);
+  
     const image = req.file? "http://localhost:4000/public/userImages/" + req.file.filename : req.body.image;
     const user = new User({
       name: req.body.name,
@@ -36,10 +34,6 @@ const logIn = async (req, res) => {
   if (!user) {
     return res.status(401).json({ message: "Invalid credentials" });
   }
-
-  // if(!user.is_verified){
-  //   return res.status(401).json({ message: 'Please verify your mail to login' });
-  // }
 
   // Create and return JWT token
   const token = jwt.sign(

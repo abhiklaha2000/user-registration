@@ -25,7 +25,6 @@ const upload = multer({storage:storage})
 
 const userController = require('../controllers/user');
 
-// user_router.get('/register',userController.loadRegister);
 user_router.post('/register', upload.single('image'),userController.insertUser);
 user_router.post('/login', userController.logIn );
 user_router.put('/sign-out',authMiddleware, userController.signOut );
@@ -34,10 +33,6 @@ user_router.get('/user/:id', authMiddleware, userController.get_user_data)
 user_router.patch('/update-user/:id', authMiddleware, userMiddleware, upload.single('image'), userController.editUser);
 user_router.get('/user', authMiddleware, userController.get_all_users);
 user_router.get('/get-public-users', authMiddleware, userController.get_public_data);
-
-
-
-
 
 
 
